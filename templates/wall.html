@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>The Wall</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+					crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+					crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<h3 class="navbar-text">Hello, {{user["first_name"]}}</h3>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/logoff">Log Off</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<h1>Welcome to the Wall</h1>
+	<form action="/post" method="POST">
+		<div class="form-group">
+			<label for="exampleTextarea">Post a message</label>
+			<textarea type="password" class="form-control" name="message" rows="3"></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary" value="Message">Post a message</button>
+	</form>
+	<form action="/post" method="POST">
+		<div class="form-group">
+			<label for="exampleTextarea">Post a comment</label>
+			<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Post a comment</button>
+	</form>
+</body>
+
+</html>
