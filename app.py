@@ -79,7 +79,7 @@ def login():
 		return redirect("/")
 
 @app.route("/wall")
-def success():
+def wall():
 	if "user_id" not in session:
 		return redirect("/")
 
@@ -87,17 +87,33 @@ def success():
 	data = {"id": session["user_id"]}
 	user = mysql.query_db(query, data)[0]
 
-	return render_template("wall.html", user=user)
+	messagequery = "SELECT messages.id, messages.user_id, messages.message, messages.created_at, users.first_name, users.last_name FROM messages LEFT JOIN users ON users.id = messages.user_id ORDER BY messages.created_at DESC"
+	messagedata = mysql.query_db(messagequery)
+
+	return render_template("wall.html", messagedata = messagedata, user=user)
 
 @app.route("/post", methods=["POST"])
 def post():
-	if "user_id" in session:
-		query = "INSERT INTO messages (message, created_at, updated_at, user_id) VALUES (:message, NOW(), NOW(), session['userid']);"
-		data = {"message": request.form["message"]}
+	query = "INSERT INTO messages(user_id, created_at, message)VALUES(:user_id, NOW(), :message)"
+    
+	data = {
+        "user_id" : session['user_id'],
+        'message' : request.form['new_message']
+    }
+	mysql.query_db(query,data)
 
-		session["user_id"] = mysql.query_db(query, data)
+	return redirect('/wall')
 
-		return redirect("/wall")
+@app.route('/comment/<message_id>',methods=["POST"])
+def comment(message_id):
+    query = 'INSERT INTO comments (comment, message_id, user_id) VALUES (:comment, :message_id, :user_id);'
+    data = {
+            'comment': request.form['new_comment'],
+            'message_id': message_id,
+            'user_id': session['user_id']
+    }
+    mysql.query_db(query,data)
+    return redirect('/wall')
 
 @app.route("/logoff")
 def logoff():
