@@ -10,43 +10,42 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<h3 class="navbar-text">Hello, {{user["first_name"]}}</h3>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/logoff">Log Off</a></li>
-				</ul>
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<h3 class="navbar-text">Hello, {{user["first_name"]}}</h3>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/logoff"><button type="button" class="btn btn-primary">Log Off</button></a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</nav>
-	<h1>Welcome to the Wall</h1>
-	<form action="/post" method="POST">
-		<div class="form-group">
-			<label for="exampleTextarea">Post a message</label>
-			<textarea type="text" class="form-control" name="new_message" rows="3"></textarea>
-		</div>
-		<button type="submit" class="btn btn-primary" value="Message">Post a message</button>
-	</form>
-	{% for message in messagedata %}
-            <h3>{{ message['first_name']}} {{ message['last_name'] }} {{ message['created_at'] }}</h3>
-            <p>{{ message['message'] }}</p>
-            {% if message['user_id'] == session['user_id'] %}
-            {% endif %}
-            {% for comment in commentdata %}
-                {% if comment['message_id'] == message['id'] %}
-                    <h4>{{ comment['first_name'] }} {{ comment['last_name'] }} {{ comment['created_at'] }}</h4>
-                    <p>{{ comment['comment'] }}</p>
-                {% endif %}
-        {% endfor %}
-	 <form action="/comment/{{ message['id'] }}" method="POST">
-		<div class="form-group">
-			<label for="exampleTextarea">Post a comment</label>
-			<textarea type="text" class="form-control" name="new_comment" rows="3"></textarea>
-		</div>
-		<button type="submit" class="btn btn-primary" value="Comment">Post a comment</button>
-	</form>
-	{% endfor %}
+		</nav>
+		<h1>Welcome to the Wall</h1>
+		<form action="/post" method="POST">
+			<div class="form-group">
+				<label for="exampleTextarea">Post a message</label>
+				<textarea type="text" class="form-control" name="new_message" rows="3"></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary" value="Message">Post a message</button>
+		</form>
+		{% for message in messagedata %}
+		<h3>{{ message['first_name']}} {{ message['last_name'] }} {{ message['created_at'] }}</h3>
+		<p>{{ message['message'] }}</p>
+		{% if message['user_id'] == session['user_id'] %} {% endif %} {% for comment in commentdata %} {% if comment['message_id']
+		== message['id'] %}
+		<h4>{{ comment['first_name'] }} {{ comment['last_name'] }} {{ comment['created_at'] }}</h4>
+		<p>{{ comment['comment'] }}</p>
+		{% endif %} {% endfor %}
+		<form action="/comment/{{ message['id'] }}" method="POST">
+			<div class="form-group">
+				<label for="exampleTextarea">Post a comment</label>
+				<textarea type="text" class="form-control" name="new_comment" rows="3"></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary" value="Comment">Post a comment</button>
+		</form>
+		{% endfor %}
+	</div>
 </body>
 
 </html>
