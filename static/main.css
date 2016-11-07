@@ -1,0 +1,43 @@
+.com_ph {
+    margin-left: 20px;
+    font-size: 17px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.time_p {
+    display: inline-block;
+    float: right;
+}
+
+.com_p {
+    margin-left: 30px;
+    background: #e0f7fa;
+    padding: 5px;
+}
+
+.msg_h {
+    margin_top: 20px;
+    padding-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.comment_btn {
+    font-size: 10px;
+}
+
+.brand-logo {
+    margin-left: 10px;
+}
+
+.msg_p {
+    background: #e8eaf6;
+    padding: 5px;
+} 
+
+h4 {
+    text-align: center;
+    padding-top: 40px;
+}

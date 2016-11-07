@@ -14,7 +14,11 @@ bcrypt = Bcrypt(app)
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 @app.route("/")
-def index():
+def sign_in():
+	return render_template("login.html")
+
+@app.route("/signup")
+def sign_up():
 	return render_template("index.html")
 
 @app.route("/register", methods=["POST"])
@@ -43,7 +47,7 @@ def register():
 	if errors:
 		for error in errors:
 			flash(error)
-		return redirect("/")
+		return redirect("/signup")
 	else:
 		query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at) VALUES (:first_name, :last_name, :email, :pw_hash, NOW(), NOW());"
 		data = {

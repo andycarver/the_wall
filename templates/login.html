@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Wonder Wall: Login</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h3>Wonder Wall</h3>
+        <h4 class"sign_in_h">Sign in</h4>
+        <div class="container">
+            <form action="/login" method="POST">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="email" placeholder="Email">
+                </div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Password:</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" value="Log In">Log In</button>
+                </div>
+                <p>Not a member? <a href="/signup">Sign up </a>to start using Wonder Wall now!</p>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -2,50 +2,51 @@
 <html>
 
 <head>
-	<title>The Wall</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-					crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-					crossorigin="anonymous"></script>
+	<title>Wonder Wall</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 </head>
 
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<h3 class="navbar-text">Hello, {{user["first_name"]}}</h3>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/logoff"><button type="button" class="btn btn-primary">Log Off</button></a></li>
-					</ul>
-				</div>
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">Wonder Wall</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="">Hello, {{user["first_name"]}}</a></li>
+					<li><a href="/logoff">Log Off</a></li>
+				</ul>
 			</div>
 		</nav>
-		<h1>Welcome to the Wall</h1>
+		<h4>Welcome to the Wall</h4>
 		<form action="/post" method="POST">
 			<div class="form-group">
-				<label for="exampleTextarea">Post a message</label>
-				<textarea type="text" class="form-control" name="new_message" rows="3"></textarea>
+				<label for="textarea">Post a message</label>
+				<textarea type="text" class="materialize-textarea" name="new_message"></textarea>
 			</div>
-			<button type="submit" class="btn btn-primary" value="Message">Post a message</button>
+			<button type="submit" class="waves-effect waves-light btn message_btn" value="Message">Post message</button>
 		</form>
 		{% for message in messagedata %}
-		<h3>{{ message['first_name']}} {{ message['last_name'] }} {{ message['created_at'] }}</h3>
-		<p>{{ message['message'] }}</p>
-		{% if message['user_id'] == session['user_id'] %} {% endif %} {% for comment in commentdata %} {% if comment['message_id']
-		== message['id'] %}
-		<h4>{{ comment['first_name'] }} {{ comment['last_name'] }} {{ comment['created_at'] }}</h4>
-		<p>{{ comment['comment'] }}</p>
-		{% endif %} {% endfor %}
-		<form action="/comment/{{ message['id'] }}" method="POST">
-			<div class="form-group">
-				<label for="exampleTextarea">Post a comment</label>
-				<textarea type="text" class="form-control" name="new_comment" rows="3"></textarea>
-			</div>
-			<button type="submit" class="btn btn-primary" value="Comment">Post a comment</button>
-		</form>
-		{% endfor %}
-	</div>
+			<p class="msg_h">{{ message['first_name']}} {{ message['last_name'] }}</p>
+			<p class="time_p">{{"{: %I:%M %p %d, %b %Y}".format(message['created_at']).replace(" 0", " ")}}</p>
+			<p class="msg_p">{{ message['message'] }}</p>
+			{% if message['user_id'] == session['user_id'] %} {% endif %} {% for comment in commentdata %} {% if comment['message_id']
+			== message['id'] %}
+			<p class="com_ph">{{ comment['first_name'] }} {{ comment['last_name'] }}</p>
+			<p class="time_p">{{"{: %I:%M %p %d, %b %Y}".format(message['created_at']).replace(" 0", " ")}}</p>
+			<p class="com_p">{{ comment['comment'] }}</p>
+			{% endif %} {% endfor %}
+			<form class="comments" action="/comment/{{ message['id'] }}" method="POST">
+				<div class="form-group">
+					<textarea type="text" class="materialize-textarea" name="new_comment" placeholder="Post a comment"></textarea>
+				</div>
+				<button type="submit" class="waves-effect waves-light btn comment_btn" value="Comment">Post comment</button>
+			</form>
+			{% endfor %}
+		</div>
 </body>
 
 </html>
